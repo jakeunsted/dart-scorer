@@ -1,24 +1,63 @@
 require('dotenv').config()
-const express = require('express');
-const app = express();
+const express = require('express')
+const session = require('express-session')
 
-app.use(express.json());
+const scoreAverage = require('./games/scoreAverage')
+
+const app = express()
+
+app.use(express.json())
+
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}))
 
 app.get('/test', (req, res) => {
-  res.send('Hello World');
+  res.send('Hello World')
 });
 
+/**
+ * @method POST
+ * @description Handles the request to add a score to the game.
+ * @param {number} score - The score to be added to the game.
+ */
 app.post('/dart/score', (req, res) => {
   try {
-    const { score } = req.body;
-    console.log('score received: ', score);
-    res.status(200).send('Success');
+    const { score } = req.body
+    console.log('score received: ', score)
+    res.status(200).send('Success')
   } catch (err) {
-    console.log('Error: ', err);
-    res.status(500).send('Internal Server Error');
+    console.log('Error: ', err)
+    res.status(500).send('Internal Server Error')
   }
 });
 
+/**
+ * @method POST
+ * @description Handles the request to start a new game.
+ * @param {string} gameName - The name of the game to be started.
+ * @param {Object} gameSettings - The settings for the game to be started.
+ */
+app.post('/game', (req, res) => {
+  let game
+  const { gameName, gameSettings } = req.body
+  
+  if (gameName === 'scoreAverage') {
+    game = new scoreAverage(gameSettings.maxThrows)
+  }
+
+  if (game) {
+    req.session.games = req.session.games || []
+    req.session.games.push(game)
+
+    res.send('New Game Starting')
+  } else {
+    res.status(400).send('Game not found')
+  }
+})
+
 app.listen(process.env.PORT, () => {
-  console.log(`API listening on port ${process.env.PORT}`);
-});
+  console.log(`API listening on port ${process.env.PORT}`)
+})

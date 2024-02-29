@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node ./src/index.js",
+    "docs": "./node_modules/jsdoc/jsdoc.js -c ./jsdoc.conf.json",
+    "docs-server": "node ./docs-server.js"
   },
   "author": "Jake Unsted",
   "license": "ISC",
@@ -14,14 +16,17 @@
     "express": "^4.18.2",
     "express-session": "^1.18.0",
     "i": "^0.3.7",
-    "mongoose": "^8.2.0",
-    "npm": "^10.4.0"
+    "npm": "^10.4.0",
+    "sequelize": "^6.37.1"
   },
   "devDependencies": {
-    "eslint": "^8.57.0"
+    "clean-jsdoc-theme": "^4.2.17",
+    "eslint": "^8.57.0",
+    "jsdoc": "^4.0.2",
+    "sequelize-cli": "^6.6.2"
   },
-  "engines" : { 
-    "npm" : ">=9.8.0",
-    "node" : ">=20.5.0"
+  "engines": {
+    "npm": ">=9.8.0",
+    "node": ">=20.5.0"
   }
 }

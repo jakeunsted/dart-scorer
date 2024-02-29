@@ -8,12 +8,19 @@ const app = express()
 
 app.use(express.json())
 
+/**
+ * Middleware to handle the session for the API.
+ */
 app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: true
 }))
 
+/**
+ * @method GET
+ * @description Test endpoint to check if the API is running.
+ */
 app.get('/test', (req, res) => {
   res.send('Hello World')
 });

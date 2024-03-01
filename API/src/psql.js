@@ -22,7 +22,5 @@ async function testConnection() {
 	}
 }
 
-testConnection() // Call the function to test the connection
-
 // Export the sequelize instance to use it in other files
-module.exports = sequelize
+module.exports = { sequelize, testConnection }

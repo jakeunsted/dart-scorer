@@ -1,6 +1,6 @@
 const express = require('express')
 const GamesRouter = express.Router()
-const scoreAverage = require('../games/scoreAverage')
+const scoreAverage = require('../../games/scoreAverage')
 
 GamesRouter.route('/game')
 /**

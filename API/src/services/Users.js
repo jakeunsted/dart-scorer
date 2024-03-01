@@ -1,17 +1,22 @@
-const { User } = require('../models/Users')
-const { sequalize } = require('../psql')
+const User = require('../models/Users')
+// const { sequalize } = require('../psql')
 
-const createUser = async () => {
+const createUser = async (newUser) => {
 	try {
-		const newUser = await User.create({
-			username: req.body.username,
-			password: req.body.password,
+		const user = await User.create({
+			username: newUser.username,
+			password: newUser.password,
 			createdAt: new Date(),
 			updatedAt: null,
 		})
+		console.log('User created:', user.toJSON())
+		return user.toJSON()
 	} catch (error) {
-		console.error('Error creating new user:', error)
+		console.error('Error creating new user:', error.errors)
+		return null
 	}
 }
 
-const updateUsername = async
+module.exports = {
+	createUser
+}

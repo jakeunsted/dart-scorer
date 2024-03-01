@@ -2,12 +2,20 @@ const { Sequelize, DataTypes, Model } = require('sequelize')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
 
-const sequelize = new Sequelize('sqlite::memory:')
+const sequelize = new Sequelize({
+	database: process.env.DB_NAME,
+	username: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	host: process.env.DB_HOST,
+	port: process.env.DB_PORT,
+	dialect: 'postgres'
+})
 
 class User extends Model {}
 
 User.init({
 	id: {
+		primaryKey: true,
 		type: DataTypes.UUID,
 		autoIncrement: true,
 		defaultValue: DataTypes.UUIDV4,
@@ -15,6 +23,7 @@ User.init({
 	},
 	username: {
 		type: DataTypes.STRING(30),
+		unique: true,
 		allowNull: false
 	},
 	password: {

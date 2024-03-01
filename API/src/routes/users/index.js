@@ -1,6 +1,6 @@
 const express = require('express')
 const UserRouter = express.Router()
-// const UserMethods = require('../../services/Users')
+const UserService = require('../../services/Users')
 
 UserRouter.route('/user')
 /**
@@ -9,10 +9,27 @@ UserRouter.route('/user')
    * @method POST
    * @memberof module:routes/users
    */
-	.post((req, res) => {
+	.post(async (req, res) => {
 		console.log('/user POST req.body:', req.body)
-		res.end()
+		if (!req.body.username || !req.body.password) {
+			res.status(400).send(
+				'User POST Failure: Missing username or password'
+			)
+			return
+		}
+		const newUser = {
+			username: req.body.username,
+			password: req.body.password
+		}
+		try {
+			const createdUser = await UserService.createUser(newUser)
+			res.send('User POST Success: ' + createdUser.username)
+		} catch (error) {
+			console.log('Error creating user:', error)
+			res.status(500).send('User POST Failure')
+		}
 	})
+
 /**
    * Handles GET request for user.
    * @name GET/user

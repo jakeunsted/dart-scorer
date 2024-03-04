@@ -1,7 +1,10 @@
 require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
-const { sequelize } = require('./db/psql') // Import the Sequelize instance
+const { 
+	sequelize,
+	checkAdminUser 
+} = require('./db/psql') // Import the Sequelize instance
 
 const app = express()
 
@@ -38,10 +41,13 @@ app.get('/test', (req, res) => {
 
 sequelize.authenticate()
 	.then(() => {
-		console.log('DB connected successfully.')
-		app.listen(process.env.PORT, () => {
-			console.log(`Server is running on port ${process.env.PORT}`)
-		})
+		checkAdminUser()
+			.then(() => {
+				console.log('DB connected successfully.')
+				app.listen(process.env.PORT, () => {
+					console.log(`Server is running on port ${process.env.PORT}`)
+				})
+			})
 	})
 	.catch(err => {
 		console.error('Unable to connect to the database:', err)

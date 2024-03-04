@@ -1,11 +1,12 @@
-const { Sequelize, DataTypes, Model } = require('sequelize')
-const sequelize = new Sequelize('sqlite::memory:')
+const { DataTypes, Model } = require('sequelize')
+const { sequelize } = require('../psql')
 
 class Games extends Model {}
 
 Games.init({
 	id: {
 		type: DataTypes.UUID,
+		primaryKey: true,
 		autoIncrement: true,
 		defaultValue: DataTypes.UUIDV4,
 		allowNull: false
@@ -13,5 +14,15 @@ Games.init({
 	timesPlayed: {
 		type: DataTypes.INTEGER,
 		allowNull: false
+	},
+	name: {
+		type: DataTypes.STRING,
+		allowNull: false
 	}
+}, {
+	sequelize,
+	modelName: 'Games',
+	timestamps: false
 })
+
+module.exports = Games

@@ -25,6 +25,8 @@ const DartRouter = require('./routes/dart/index')
 app.use(DartRouter)
 const GamesRouter = require('./routes/games/index')
 app.use(GamesRouter)
+const UserStatisticsRouter = require('./routes/user_statistics/index')
+app.use(UserStatisticsRouter)
 
 /**
  * @method GET

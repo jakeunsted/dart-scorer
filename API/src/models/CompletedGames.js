@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes, Model } = require('sequelize')
-const sequelize = new Sequelize('sqlite::memory:')
+const { DataTypes, Model } = require('sequelize')
+const { sequelize } = require('../psql')
 const { User } = './Users.js'
 
 class CompletedGames extends Model {}
@@ -10,6 +10,22 @@ CompletedGames.init({
 		autoIncrement: true,
 		defaultValue: DataTypes.UUIDV4,
 		allowNull: false
+	},
+	userId: {
+		type: DataTypes.UUID,
+		allowNull: false,
+		references: { // Foreign key referencing Users table
+			model: 'Users',
+			key: 'id'
+		}
+	},
+	gamesId: {
+		type: DataTypes.UUID,
+		allowNull: false,
+		references: { // Foreign key referencing Games table
+			model: 'Games',
+			key: 'id'
+		}
 	},
 	createdOn: {
 		type: DataTypes.DATE,
@@ -23,14 +39,6 @@ CompletedGames.init({
 		type: DataTypes.SMALLINT,
 		allowNull: true
 	},
-	userId: {
-		type: DataTypes.UUID,
-		allowNull: false,
-		references: { // Foreign key referencing Users table
-			model: 'Users',
-			key: 'id'
-		}
-	}
 }, {
 	sequelize,
 	modelName: 'CompletedGame'

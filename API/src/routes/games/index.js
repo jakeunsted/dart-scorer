@@ -1,5 +1,6 @@
 const express = require('express')
 const GamesRouter = express.Router()
+const GamesService = require('../../services/Games')
 const scoreAverage = require('../../games/scoreAverage')
 
 GamesRouter.route('/game')
@@ -24,6 +25,27 @@ GamesRouter.route('/game')
 			res.send('New Game Starting')
 		} else {
 			res.status(400).send('Game not found')
+		}
+	})
+
+GamesRouter.route('/game/new')
+/**
+   * @method POST
+   * @description Creates a new game. 
+   * @param {Object} newGame - The new game object.
+   * @returns {Object} - The created game object.
+   */
+	.post((req, res) => {
+		console.log(req.body.name)
+		let newGame = {
+			name: req.body.name,
+		}
+		try {
+
+			const game = GamesService.createGame(newGame)
+			res.send(game)
+		} catch (error) {
+			res.status(500).send('Error creating new game:', error.errors)
 		}
 	})
 

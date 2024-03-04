@@ -23,7 +23,7 @@ UserRouter.route('/user')
 		}
 		try {
 			const createdUser = await UserService.createUser(newUser)
-			res.send('User POST Success: ' + createdUser.username)
+			res.send('User POST Success: ' + createdUser)
 		} catch (error) {
 			console.log('Error creating user:', error)
 			res.status(500).send('User POST Failure')

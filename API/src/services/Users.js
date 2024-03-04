@@ -1,6 +1,14 @@
 const { User } = require('../models/Users')
 // const { sequelize } = require('../db/psql')
 
+/**
+ * Creates a new user.
+ * @param {Object} newUser - The new user object.
+ * @param {string} newUser.username - The username of the new user.
+ * @param {string} newUser.password - The password of the new user.
+ * @returns {Object|null} - The created user object or 
+ * null if an error occurred.
+ */
 const createUser = async (newUser) => {
 	console.log('Creating new user:', newUser)
 	try {
@@ -18,6 +26,24 @@ const createUser = async (newUser) => {
 	}
 }
 
+/**
+ * Checks if the user with the given ID is an admin.
+ * @param {number} id - The ID of the user to check.
+ * @returns {Promise<boolean>} - A promise that resolves to a 
+ * boolean indicating whether the user is an admin or not.
+ */
+const isIdAdmin = async (id) => {
+	try {
+		const user = await User.findByPk(id)
+		console.log('isIdAdmin user:', id, ' ', user.toJSON())
+		return user.toJSON().isAdmin || false
+	} catch (error) {
+		console.error('Error checking if user ID is admin:', error)
+		return false
+	}
+}
+
 module.exports = {
-	createUser
+	createUser,
+	isIdAdmin
 }

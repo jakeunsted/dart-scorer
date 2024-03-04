@@ -12,7 +12,14 @@ const sequelize = new Sequelize({
 	port: process.env.DB_PORT,
 })
 
-// Test the connection
+/**
+ * Tests the connection to the database.
+ * @async
+ * @function testConnection
+ * @returns {Promise<void>} A promise that resolves
+ * when the connection is established successfully.
+ * @throws {Error} If unable to connect to the database.
+ */
 async function testConnection() {
 	try {
 		await sequelize.authenticate()
@@ -22,5 +29,32 @@ async function testConnection() {
 	}
 }
 
+/**
+ * Checks if an admin user exists in the database.
+ * If not, creates one with the specified admin username and password.
+ * @returns {Promise<void>} A promise that resolves when
+ * the admin user is checked or created.
+ */
+async function checkAdminUser() {
+	const { User } = require('../models/Users')
+	const user = await User.findOne({ 
+		where: { username: process.env.ADMIN_USERNAME } 
+	})
+	if (!user) {
+		console.log(
+			'No user with id: 1 found. Creating one with user.admin = true'
+		)
+		const { createAdminUser } = require('../services/Users')
+		await createAdminUser({
+			username: process.env.ADMIN_USERNAME,
+			password: process.env.ADMIN_PASSWORD
+		}).then(() => {
+			console.log('Admin user created successfully.')
+		})
+	} else {
+		console.log('Admin user found, username:', user.username)
+	}
+}
+
 // Export the sequelize instance to use it in other files
-module.exports = { sequelize, testConnection }
+module.exports = { sequelize, testConnection, checkAdminUser }

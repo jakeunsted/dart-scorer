@@ -17,11 +17,39 @@ const createUser = async (newUser) => {
 			password: newUser.password,
 			createdAt: new Date(),
 			updatedAt: null,
+			isAdmin: false
 		})
 		console.log('User created:', user.toJSON())
 		return user.toJSON()
 	} catch (error) {
 		console.error('Error creating new user:', error)
+		return null
+	}
+}
+
+/**
+ * Creates a new user in the database.
+ * @param {Object} newUser - The user object containing the username,
+ * password, and isAdmin status.
+ * @param {string} newUser.username - The username of the new user.
+ * @param {string} newUser.password - The password of the new user.
+ * @returns {Promise<Object>|null} - A promise that resolves to the
+ * created user object.
+ */
+const createAdminUser = async (newUser) => {
+	console.log('Creating new admin user:', newUser)
+	try {
+		const user = await User.create({
+			username: newUser.username,
+			password: newUser.password,
+			createdAt: new Date(),
+			updatedAt: null,
+			isAdmin: true
+		})
+		console.log('Admin user created:', user.toJSON())
+		return user.toJSON()
+	} catch (error) {
+		console.error('Error creating new admin user:', error)
 		return null
 	}
 }
@@ -45,5 +73,6 @@ const isIdAdmin = async (id) => {
 
 module.exports = {
 	createUser,
-	isIdAdmin
+	isIdAdmin,
+	createAdminUser
 }

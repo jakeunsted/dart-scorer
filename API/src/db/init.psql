@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS public."Users"
     password character varying NOT NULL,
     "createdAt" date NOT NULL,
     "updatedAt" date,
+    "isAdmin" boolean NOT NULL DEFAULT false,
     PRIMARY KEY (id),
     CONSTRAINT username UNIQUE (username)
 );

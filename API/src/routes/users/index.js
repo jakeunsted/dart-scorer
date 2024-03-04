@@ -41,4 +41,24 @@ UserRouter.route('/user')
 		res.send('User GET Success')
 	})
 
+UserRouter.route('/user/isAdmin/:id')
+/**
+ * Handles GET request for the user admin check with ID
+ * @method GET
+ * @name /user/isAdmin/:id
+ * @memberof module:routes/users
+ */
+	.get(async (req, res) => {
+		console.log('/user/isAdmin/:id GET req.params:', req.params)
+		try {
+			const isAdmin = await UserService.isIdAdmin(
+				req.params.id
+			)
+			res.send('User isAdmin GET Success: ' + isAdmin)
+		} catch (error) {
+			console.log('Error checking if user ID is admin:', error)
+			res.status(500).send('User isAdmin GET Failure')
+		}
+	})
+
 module.exports = UserRouter

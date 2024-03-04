@@ -1,5 +1,5 @@
 const { User } = require('../models/Users')
-// const { sequalize } = require('../psql')
+// const { sequelize } = require('../db/psql')
 
 const createUser = async (newUser) => {
 	console.log('Creating new user:', newUser)

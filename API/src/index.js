@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
-const { sequelize } = require('./psql') // Import the Sequelize instance
+const { sequelize } = require('./db/psql') // Import the Sequelize instance
 
 const app = express()
 

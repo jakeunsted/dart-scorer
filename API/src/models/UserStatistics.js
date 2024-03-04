@@ -1,5 +1,5 @@
 const { DataTypes, Model } = require('sequelize')
-const { sequelize } = require('../psql')
+const { sequelize } = require('../db/psql')
 const { User } = require('./Users.js')
 
 class UserStatistics extends Model {}

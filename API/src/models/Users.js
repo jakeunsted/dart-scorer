@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require('sequelize')
 const bcrypt = require('bcrypt')
 require('dotenv').config()
-const { sequelize } = require('../psql')
+const { sequelize } = require('../db/psql')
 
 class User extends Model {}
 

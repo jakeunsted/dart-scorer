@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const session = require('express-session')
+const { auth } = require('express-openid-connect')
 const { 
 	sequelize,
 	checkAdminUser 
@@ -20,6 +21,19 @@ app.use(session({
 }))
 
 /**
+ * Auth0 configuration
+ */
+const config = {
+	authRequired: false,
+	auth0Logout: true,
+	secret: process.env.AUTH0_SECRET,
+	baseURL: process.env.AUTH0_BASE_URL,
+	clientID: process.env.AUTH0_CLIENT_ID,
+	issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL
+}
+app.use(auth(config))
+
+/**
  * ROUTES Imports
  */
 const UserRouter = require('./routes/users/index')
@@ -30,6 +44,8 @@ const GamesRouter = require('./routes/games/index')
 app.use(GamesRouter)
 const UserStatisticsRouter = require('./routes/user_statistics/index')
 app.use(UserStatisticsRouter)
+const AuthRouter = require('./routes/auth/index')
+app.use(AuthRouter)
 
 /**
  * @method GET
@@ -37,6 +53,10 @@ app.use(UserStatisticsRouter)
  */
 app.get('/test', (req, res) => {
 	res.send('Hello World')
+})
+
+app.get('/', (req, res) => {
+	res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
 })
 
 sequelize.authenticate()

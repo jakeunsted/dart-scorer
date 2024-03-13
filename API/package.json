@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/index.js",
+    "start:local": "LOCAL=true node ./src/index.js",
     "docs": "./node_modules/jsdoc/jsdoc.js -c ./jsdoc.conf.json",
     "docs-server": "node ./docs-server.js",
     "lint": "eslint --ext .js --ignore-path ../.gitignore --ignore-path ./docs ."

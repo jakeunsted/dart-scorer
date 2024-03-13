@@ -31,9 +31,27 @@ const config = {
 	clientID: process.env.AUTH0_CLIENT_ID,
 	issuerBaseURL: process.env.AUTH0_ISSUER_BASE_URL
 }
-app.use(auth(config))
+if (process.env.LOCAL !== 'true') {
+	console.log('setting auth0')
+	app.use(auth(config))
 
-/**
+	/**
+ * @method GET
+ * @description Test endpoint to check if the API is running.
+ */
+	app.get('/test', (req, res) => {
+		res.send('Hello World')
+	})
+
+	app.get('/', (req, res) => {
+		res.send(req.oidc.isAuthenticated() 
+			? `Logged in \n ${JSON.stringify(req.oidc.user)}`
+			: 'Logged out'
+		)
+	})
+}
+
+/**ß
  * ROUTES Imports
  */
 const UserRouter = require('./routes/users/index')
@@ -46,18 +64,6 @@ const UserStatisticsRouter = require('./routes/user_statistics/index')
 app.use(UserStatisticsRouter)
 const AuthRouter = require('./routes/auth/index')
 app.use(AuthRouter)
-
-/**
- * @method GET
- * @description Test endpoint to check if the API is running.
- */
-app.get('/test', (req, res) => {
-	res.send('Hello World')
-})
-
-app.get('/', (req, res) => {
-	res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-})
 
 sequelize.authenticate()
 	.then(() => {

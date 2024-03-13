@@ -35,14 +35,6 @@ if (process.env.LOCAL !== 'true') {
 	console.log('setting auth0')
 	app.use(auth(config))
 
-	/**
- * @method GET
- * @description Test endpoint to check if the API is running.
- */
-	app.get('/test', (req, res) => {
-		res.send('Hello World')
-	})
-
 	app.get('/', (req, res) => {
 		res.send(req.oidc.isAuthenticated() 
 			? `Logged in \n ${JSON.stringify(req.oidc.user)}`
@@ -51,7 +43,15 @@ if (process.env.LOCAL !== 'true') {
 	})
 }
 
-/**ß
+/**
+ * @method GET
+ * @description Test endpoint to check if the API is running.
+ */
+app.get('/test', (req, res) => {
+	res.send('Hello World')
+})
+
+/**
  * ROUTES Imports
  */
 const UserRouter = require('./routes/users/index')

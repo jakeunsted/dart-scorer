@@ -40,7 +40,11 @@ build/Release
 
 # Dependency directories
 node_modules/
+*/node_modules
 jspm_packages/
+
+# Package locks
+package-lock.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
@@ -128,3 +132,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# JSDoc
+*/docs
+
+# VSCode settings
+settings.json
+.vscode

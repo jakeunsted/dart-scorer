@@ -1,0 +1,91 @@
+BEGIN;
+
+DROP TABLE IF EXISTS public."Users";
+
+CREATE TABLE IF NOT EXISTS public."Users"
+(
+    id uuid NOT NULL,
+    username character varying(30) NOT NULL,
+    password character varying NOT NULL,
+    "createdAt" date NOT NULL,
+    "updatedAt" date,
+    "isAdmin" boolean NOT NULL DEFAULT false,
+    PRIMARY KEY (id),
+    CONSTRAINT username UNIQUE (username)
+);
+
+DROP TABLE IF EXISTS public."CompletedGames";
+
+CREATE TABLE IF NOT EXISTS public."CompletedGames"
+(
+    id uuid NOT NULL,
+    "user.id" uuid NOT NULL,
+    "games.id" uuid NOT NULL,
+    "createdOn" date NOT NULL,
+    "gameName" character varying(25) NOT NULL,
+    "threeDartAverage" smallint,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS public."Games";
+
+CREATE TABLE IF NOT EXISTS public."Games"
+(
+    id uuid NOT NULL,
+    "timesPlayed" integer NOT NULL DEFAULT 0,
+    name character varying NOT NULL,
+    PRIMARY KEY (id)
+);
+
+DROP TABLE IF EXISTS public."UserStatistics";
+
+CREATE TABLE IF NOT EXISTS public."UserStatistics"
+(
+    id uuid NOT NULL,
+    "userId" uuid NOT NULL,
+    "totalGamesPlayed" integer NOT NULL DEFAULT 0,
+    "threeDartAverage" smallint NOT NULL DEFAULT 0,
+    "highestCheckout" smallint,
+    PRIMARY KEY (id)
+);
+
+ALTER TABLE IF EXISTS public."CompletedGames"
+    ADD CONSTRAINT "user.id" FOREIGN KEY ("user.id")
+    REFERENCES public."Users" (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public."CompletedGames"
+    ADD CONSTRAINT "games.id" FOREIGN KEY ("games.id")
+    REFERENCES public."Games" (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+
+
+ALTER TABLE IF EXISTS public."UserStatistics"
+    ADD CONSTRAINT "userID" FOREIGN KEY ("userId")
+    REFERENCES public."Users" (id) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION
+    NOT VALID;
+	
+-- Create a function to initialize UserStatistics for a new user
+CREATE OR REPLACE FUNCTION initialize_user_statistics()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO "UserStatistics" ("id", "userId")
+    VALUES (NEW.id, NEW.id);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create a trigger to call the above function after inserting a new user
+CREATE TRIGGER user_created_trigger
+AFTER INSERT ON "Users"
+FOR EACH ROW
+EXECUTE FUNCTION initialize_user_statistics();
+
+END;

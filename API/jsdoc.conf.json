@@ -1,0 +1,33 @@
+{
+  "plugins": ["plugins/markdown"],
+  "recurseDepth": 10,
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/",
+    "readme": "../README.md",
+    "template": "./node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+        "default_theme": "dark",
+        "homepageTitle": "Dart Scorer API",
+        "search": false,
+        "sections": ["Classes", "Modules", "Namespaces"],
+        "create_style": ".sidebar-container { padding: 0; } * { border-radius: 0 !important } .dark td.type { color: orange !important } .params, .props, table { border-spacing: 0 1px }"
+    }
+  },
+  "markdown": {
+    "idInHeadings": true
+  },
+  "source": {
+    "includePattern": ".+/API/.+\\.js$",
+    "excludePattern": "node_modules"
+  },
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  }
+}

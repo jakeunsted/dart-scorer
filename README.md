@@ -1,1 +1,3 @@
-# dart-scorer
+# Dart Scorer
+
+## Currently in development

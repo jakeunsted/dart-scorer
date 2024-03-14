@@ -1,0 +1,21 @@
+{
+  "name": "darts-scorer",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Jake Unsted",
+  "license": "ISC",
+  "workspaces": [
+    "API",
+    "frontend"
+  ],
+  "scripts": {
+    "install": "cd API && npm install && cd ../frontend && yarn install",
+    "start:api": "cd API && npm start",
+    "start:api-local": "cd API && LOCAL=true npm start",
+    "start:frontend": "cd frontend && yarn dev --open"
+  },
+  "engines": {
+    "npm": ">=9.8.0",
+    "node": ">=20.5.0"
+  }
+}

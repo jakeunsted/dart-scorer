@@ -11,8 +11,6 @@
     "docs-server": "node ./docs-server.js",
     "lint": "eslint --ext .js --ignore-path ../.gitignore --ignore-path ./docs ."
   },
-  "author": "Jake Unsted",
-  "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",

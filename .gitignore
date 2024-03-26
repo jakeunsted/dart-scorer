@@ -152,3 +152,4 @@ dist
 .DS_Store
 .fleet
 .idea
+*storybook.log

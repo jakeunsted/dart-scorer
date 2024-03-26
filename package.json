@@ -6,16 +6,19 @@
   "license": "ISC",
   "workspaces": [
     "API",
-    "frontend"
+    "frontend",
+    "storybook"
   ],
   "scripts": {
     "install": "cd API && npm install && cd ../frontend && yarn install",
     "start:api": "cd API && npm start",
     "start:api-local": "cd API && LOCAL=true npm start",
-    "start:frontend": "cd frontend && yarn dev --open"
+    "start:frontend": "cd frontend && yarn dev --open",
+    "start:storybook": "cd storybook && yarn storybook"
   },
   "engines": {
     "npm": ">=9.8.0",
     "node": ">=20.5.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }

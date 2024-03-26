@@ -7,10 +7,10 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "preview": "nuxt preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "nuxt": "^3.10.3",
     "sass": "^1.72.0",
     "vite-plugin-vuetify": "^2.0.3",

@@ -10,7 +10,7 @@
     "storybook"
   ],
   "scripts": {
-    "install": "cd API && npm install && cd ../frontend && yarn install",
+    "install": "cd API && npm install && cd ../frontend && yarn install && cd ../storybook && yarn install",
     "start:api": "cd API && npm start",
     "start:api-local": "cd API && LOCAL=true npm start",
     "start:frontend": "cd frontend && yarn dev --open",

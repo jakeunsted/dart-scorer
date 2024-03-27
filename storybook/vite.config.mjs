@@ -8,6 +8,9 @@ import ViteFonts from 'unplugin-fonts/vite'
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
+// Styles
+// import '@/styles/widths.scss'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [

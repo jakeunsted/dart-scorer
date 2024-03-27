@@ -1,10 +1,8 @@
 <template>
-  <v-btn>{{ value }}</v-btn>
+  <v-btn class="mlr-small">{{ value }}</v-btn>
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
-
 const props = defineProps({
   value: Number,
 });

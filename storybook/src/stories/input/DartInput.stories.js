@@ -6,13 +6,14 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     value: {
-      control: {
-        type: 'number',
-      },
+      control: { type: 'number' },
+      description: 'The value of the input'
     },
-  },
+  }
 };
 
 export const Standard = {
-  args: {}
+  args: {
+    value: 0,
+  }
 }

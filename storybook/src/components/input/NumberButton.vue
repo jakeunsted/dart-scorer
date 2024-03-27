@@ -2,13 +2,10 @@
   <v-btn>{{ value }}</v-btn>
 </template>
 
-<script>
-export default {
-  props: {
-    value: {
-      type: Number,
-      required: true
-    }
-  },
-}
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps({
+  value: Number,
+});
 </script>

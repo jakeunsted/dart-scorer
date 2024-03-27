@@ -11,6 +11,7 @@ declare module 'vue' {
     NumberButton: typeof import('./src/components/input/NumberButton.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScoreCard: typeof import('./src/components/score/ScoreCard.vue')['default']
     ScoreInput: typeof import('./src/components/input/ScoreInput.vue')['default']
   }
 }

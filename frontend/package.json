@@ -17,5 +17,9 @@
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vuetify": "^3.4.0-beta.1"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.2.2",
+    "sass-loader": "^14.1.1"
   }
 }

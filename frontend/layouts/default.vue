@@ -11,6 +11,7 @@
       <v-btn icon="mdi-account"></v-btn>
     </template>
   </v-app-bar>
+  <nuxt-page />
 </template>
 
 <script>

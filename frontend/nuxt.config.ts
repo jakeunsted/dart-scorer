@@ -4,10 +4,19 @@ export default defineNuxtConfig({
   experimental: {
     reactivityTransform: true
   },
+  pages: true,
+  buildModules: [
+    '@nuxtjs/style-resources',
+  ],
   css: [
     'vuetify/lib/styles/main.sass',
     '@mdi/font/css/materialdesignicons.min.css',
   ],
+  styleResources: {
+    scss: [
+      './assets/style/*.scss',
+    ],
+  },
   devtools: { enabled: true },
   build: {
     transpile: ['vuetify'],

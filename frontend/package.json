@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "nuxt": "^3.10.3",
+    "nuxt": "^3.16.0",
     "sass": "^1.72.0",
     "vite-plugin-vuetify": "^2.0.3",
     "vue": "^3.4.21",
